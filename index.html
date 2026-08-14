@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe &bull; Data Structures and Aligorithms (2205 ST)</title>
+    <meta name="description" content="An interactive Tic-Tac-Toe engine demonstrating Stack (LIFO Move History), Queue (FIFO Turn Scheduling), and Game Tree (Minimax Traversal).">
+
+    <!-- Typography: Inter font family -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- Modular CSS Stylesheets -->
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/layout.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/board.css">
+    <link rel="stylesheet" href="styles/animations.css">
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div id="app-container">
+
+        <!-- ================================================================
+             1. APPLICATION HEADER
+             ================================================================ -->
+        <header class="app-header">
+            <div class="header-brand">
+                <div class="brand-icon-wrapper">
+                    <i data-lucide="grid-3x3"></i>
+                </div>
+                <div class="header-title-group">
+                    <h1>Tic-Tac-Toe Engine</h1>
+                    <p>Data Structures and Aligorithms (2205 ST) &bull; Coursework Project</p>
+                </div>
+            </div>
+            <div class="header-badge">
+                <i data-lucide="binary"></i>
+                <span>Stack &amp; Tree Analysis</span>
+            </div>
+        </header>
+
+        <!-- ================================================================
+             2. MAIN WORKSPACE GRID (3-Column Layout)
+             ================================================================ -->
+        <main class="workspace-grid">
+
+            <!-- LEFT PANEL: Stack Data Structure (Move History) -->
+            <aside class="side-panel" id="stack-panel-container">
+                <div class="panel-header">
+                    <div class="panel-title-group">
+                        <span class="panel-title">
+                            <i data-lucide="layers"></i>
+                            Move Stack
+                        </span>
+                        <span class="panel-subtitle">Array Repr &bull; LIFO</span>
+                    </div>
+                    <span class="panel-chip chip-stack">Stack</span>
+                </div>
+
+                <div class="dsa-stat-grid">
+                    <div class="stat-box">
+                        <span class="stat-label">TOP Index</span>
+                        <span class="stat-value" id="stat-stack-top">-1</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Capacity</span>
+                        <span class="stat-value" id="stat-stack-size">0 / 9</span>
+                    </div>
+                </div>
+
+                <!-- Live Stack Frames Viewport -->
+                <div class="stack-viewport" id="stack-viewport" aria-label="Stack Move History"></div>
+            </aside>
+
+            <!-- CENTER STAGE: Controls, Status Banner & 3x3 Board -->
+            <section class="center-stage">
+
+                <!-- Control Card (Mode Selection & Match Actions) -->
+                <div class="control-card">
+                    <div class="control-row">
+                        <!-- Mode Selector Tabs -->
+                        <div class="mode-selector-group" role="tablist" aria-label="Game Mode Selection">
+                            <button class="mode-tab-btn active" data-mode="pvp" role="tab" aria-selected="true">
+                                <i data-lucide="users"></i>
+                                <span>PvP</span>
+                            </button>
+                            <button class="mode-tab-btn" data-mode="pvai" role="tab" aria-selected="false">
+                                <i data-lucide="bot"></i>
+                                <span>Player vs AI</span>
+                            </button>
+                            <button class="mode-tab-btn" data-mode="aivai" role="tab" aria-selected="false">
+                                <i data-lucide="cpu"></i>
+                                <span>AI vs AI</span>
+                            </button>
+                        </div>
+
+                        <!-- Symbol Selector (Only shown in PvAI mode) -->
+                        <div class="symbol-choice-group hidden" id="symbol-config-group">
+                            <span class="symbol-choice-label">Play As:</span>
+                            <button class="symbol-pill-btn active" data-symbol="X">X</button>
+                            <button class="symbol-pill-btn" data-symbol="O">O</button>
+                        </div>
+
+                        <!-- Match Action Buttons -->
+                        <div class="action-buttons-group">
+                            <button class="btn-base btn-secondary" id="btn-undo" title="Rollback topmost move (Stack POP)">
+                                <i data-lucide="rotate-ccw"></i>
+                                <span>Undo</span>
+                            </button>
+                            <button class="btn-base btn-primary" id="btn-reset" title="Start a fresh match">
+                                <i data-lucide="refresh-cw"></i>
+                                <span>Reset</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Match Status Banner -->
+                <div class="status-card">
+                    <div class="status-left">
+                        <div class="status-indicator-dot x-turn" id="status-indicator-dot"></div>
+                        <div>
+                            <div class="status-headline" id="status-headline">Player X's Turn</div>
+                            <div class="status-subtext" id="status-subtext">Waiting for marker placement on open coordinate...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3x3 Tic-Tac-Toe Board -->
+                <div class="board-wrapper">
+                    <div class="tic-tac-toe-board" id="board-container" aria-label="Tic-Tac-Toe Game Grid"></div>
+                </div>
+
+            </section>
+
+            <!-- RIGHT PANEL: Game Tree (Minimax AI Decisions) -->
+            <aside class="side-panel" id="tree-panel-container">
+                <div class="panel-header">
+                    <div class="panel-title-group">
+                        <span class="panel-title">
+                            <i data-lucide="git-fork"></i>
+                            Decision Tree
+                        </span>
+                        <span class="panel-subtitle">Minimax Algorithm</span>
+                    </div>
+                    <span class="panel-chip chip-tree">Tree</span>
+                </div>
+
+                <div class="dsa-stat-grid">
+                    <div class="stat-box">
+                        <span class="stat-label">Nodes Visited</span>
+                        <span class="stat-value" id="stat-tree-nodes">0</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Evaluation</span>
+                        <span class="stat-value" id="stat-tree-score">—</span>
+                    </div>
+                </div>
+
+                <!-- Live Minimax Branches Viewport -->
+                <div class="tree-viewport" id="tree-viewport" aria-label="Minimax Candidate Branches"></div>
+            </aside>
+
+        </main>
+
+        <!-- ================================================================
+             3. APPLICATION FOOTER
+             ================================================================ -->
+        <footer class="app-footer">
+            <div class="footer-members">
+                <span>Group Members:</span>
+                <span class="member-tag">Precious</span>
+                <span class="member-tag">Gideon</span>
+                <span class="member-tag">Peter</span>
+            </div>
+            <div>
+                <span>Data Structures and Aligorithms (2205 ST)</span>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Application ES Module Entry Point -->
+    <script type="module" src="scripts/main.js"></script>
+</body>
+</html>

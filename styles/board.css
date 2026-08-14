@@ -1,0 +1,112 @@
+/**
+ * ============================================================================
+ * DATA STRUCTURES & ALGORITHMS (2205 ST) — COURSEWORK PROJECT
+ * File: styles/board.css
+ * Description: 3x3 game grid, cells, markers (X & O), and winning lines.
+ * Authors: Precious, Gideon, Peter
+ * ============================================================================
+ */
+
+/* --------------------------------------------------------------------------
+   1. BOARD CONTAINER
+   -------------------------------------------------------------------------- */
+.board-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+}
+
+.tic-tac-toe-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 8px;
+    background: var(--border-medium);
+    border: 2px solid var(--border-medium);
+    border-radius: var(--radius-lg);
+    padding: 8px;
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 1 / 1;
+    box-shadow: var(--shadow-md);
+    background-color: var(--border-light);
+}
+
+/* --------------------------------------------------------------------------
+   2. BOARD CELLS
+   -------------------------------------------------------------------------- */
+.grid-cell {
+    background-color: var(--bg-surface);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.75rem;
+    font-weight: 800;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+    box-shadow: var(--shadow-xs);
+}
+
+.grid-cell:hover:not(.occupied):not(.disabled) {
+    background-color: var(--bg-subtle);
+    transform: scale(0.98);
+}
+
+.grid-cell.occupied {
+    cursor: default;
+}
+
+.grid-cell.disabled {
+    cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   3. MARKER COLORS
+   -------------------------------------------------------------------------- */
+.grid-cell.mark-x {
+    color: var(--player-x);
+}
+
+.grid-cell.mark-o {
+    color: var(--player-o);
+}
+
+/* Cell content wrapper for scaling animation */
+.mark-content {
+    display: inline-block;
+    line-height: 1;
+}
+
+/* --------------------------------------------------------------------------
+   4. WINNING HIGHLIGHT
+   -------------------------------------------------------------------------- */
+.grid-cell.winner-cell {
+    background-color: var(--success-bg);
+    box-shadow: 0 0 0 2px var(--success);
+    z-index: 2;
+}
+
+.grid-cell.winner-cell.mark-x {
+    color: var(--success);
+}
+
+.grid-cell.winner-cell.mark-o {
+    color: var(--success);
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+    .tic-tac-toe-board {
+        max-width: 300px;
+        gap: 6px;
+        padding: 6px;
+    }
+
+    .grid-cell {
+        font-size: 2.25rem;
+    }
+}

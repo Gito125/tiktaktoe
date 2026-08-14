@@ -1,0 +1,465 @@
+/**
+ * ============================================================================
+ * DATA STRUCTURES & ALGORITHMS (2205 ST) — COURSEWORK PROJECT
+ * File: styles/components.css
+ * Description: UI components: mode selection, controls, stats, panels, cards.
+ * Authors: Precious, Gideon, Peter
+ * ============================================================================
+ */
+
+/* --------------------------------------------------------------------------
+   1. CONTROL BAR & MODE SELECTION
+   -------------------------------------------------------------------------- */
+.control-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.control-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.mode-selector-group {
+    display: flex;
+    background: var(--bg-subtle);
+    padding: 0.25rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+    gap: 0.25rem;
+}
+
+.mode-tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all 0.15s ease;
+}
+
+.mode-tab-btn:hover {
+    color: var(--text-primary);
+}
+
+.mode-tab-btn.active {
+    background: var(--bg-surface);
+    color: var(--accent-primary);
+    font-weight: 600;
+    box-shadow: var(--shadow-xs);
+}
+
+/* Symbol Choice Config (PvAI) */
+.symbol-choice-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg-subtle);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+}
+
+.symbol-choice-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.symbol-pill-btn {
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    border: 1px solid transparent;
+    transition: all 0.15s ease;
+}
+
+.symbol-pill-btn.active[data-symbol="X"] {
+    background: var(--player-x-bg);
+    color: var(--player-x);
+    border-color: var(--player-x-border);
+}
+
+.symbol-pill-btn.active[data-symbol="O"] {
+    background: var(--player-o-bg);
+    color: var(--player-o);
+    border-color: var(--player-o-border);
+}
+
+/* Primary Action Buttons */
+.action-buttons-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-base {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.15s ease;
+}
+
+.btn-secondary {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-medium);
+    color: var(--text-primary);
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: var(--bg-subtle);
+    border-color: var(--border-dark);
+}
+
+.btn-secondary:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: var(--accent-primary);
+    color: var(--text-inverse);
+    box-shadow: var(--shadow-xs);
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+}
+
+/* --------------------------------------------------------------------------
+   2. GAME STATUS BANNER
+   -------------------------------------------------------------------------- */
+.status-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: 0.85rem 1.25rem;
+    box-shadow: var(--shadow-xs);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.status-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.status-indicator-dot {
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 50%;
+    background: var(--border-dark);
+}
+
+.status-indicator-dot.x-turn {
+    background: var(--player-x);
+    box-shadow: 0 0 0 3px var(--player-x-border);
+}
+
+.status-indicator-dot.o-turn {
+    background: var(--player-o);
+    box-shadow: 0 0 0 3px var(--player-o-border);
+}
+
+.status-indicator-dot.win {
+    background: var(--success);
+    box-shadow: 0 0 0 3px var(--success-border);
+}
+
+.status-indicator-dot.draw {
+    background: var(--warning);
+}
+
+.status-headline {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.status-subtext {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   3. DSA PANEL HEADINGS & STATS
+   -------------------------------------------------------------------------- */
+.panel-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.panel-title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.panel-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.panel-subtitle {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+}
+
+.panel-chip {
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-full);
+}
+
+.chip-stack {
+    background: var(--stack-theme-bg);
+    color: var(--stack-theme);
+    border: 1px solid var(--stack-theme-border);
+}
+
+.chip-tree {
+    background: var(--tree-theme-bg);
+    color: var(--tree-theme);
+    border: 1px solid var(--tree-theme-border);
+}
+
+.dsa-stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+}
+
+.stat-box {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem 0.65rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.stat-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+}
+
+.stat-value {
+    font-size: 0.9rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    color: var(--text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   4. STACK VISUALIZATION (MOVE HISTORY)
+   -------------------------------------------------------------------------- */
+.stack-viewport {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 0.75rem;
+    min-height: 240px;
+    max-height: 320px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column-reverse; /* Top of stack is visually at top */
+    gap: 0.4rem;
+}
+
+.stack-frame {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-sm);
+    padding: 0.45rem 0.65rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    transition: all 0.15s ease;
+}
+
+.stack-frame.is-top {
+    border-color: var(--stack-theme);
+    background: var(--stack-theme-bg);
+}
+
+.stack-frame-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.stack-index {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    width: 2.2rem;
+}
+
+.stack-badge {
+    font-weight: 700;
+    font-size: 0.75rem;
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+}
+
+.stack-badge.x {
+    background: var(--player-x-bg);
+    color: var(--player-x);
+}
+
+.stack-badge.o {
+    background: var(--player-o-bg);
+    color: var(--player-o);
+}
+
+.stack-cell-name {
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.top-pointer-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    background: var(--stack-theme);
+    color: #ffffff;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+}
+
+.empty-state-notice {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    padding: 2rem 0.5rem;
+    margin: auto;
+}
+
+/* --------------------------------------------------------------------------
+   5. GAME TREE VISUALIZATION (MINIMAX AI DECISION)
+   -------------------------------------------------------------------------- */
+.tree-viewport {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 0.75rem;
+    min-height: 240px;
+    max-height: 320px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.tree-root-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-sm);
+    padding: 0.4rem 0.6rem;
+    text-align: center;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.tree-branches-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.tree-candidates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+    gap: 0.4rem;
+}
+
+.tree-candidate-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 0.4rem 0.45rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    transition: transform 0.15s ease;
+}
+
+.tree-candidate-card.is-chosen {
+    border-color: var(--success);
+    background: var(--success-bg);
+    box-shadow: 0 0 0 1px var(--success);
+}
+
+.candidate-pos {
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.candidate-score {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.candidate-score.positive {
+    color: var(--success);
+}
+
+.candidate-score.neutral {
+    color: var(--text-secondary);
+}
+
+.candidate-score.negative {
+    color: var(--player-x);
+}
+
+.candidate-tag {
+    font-size: 0.58rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--success);
+}
