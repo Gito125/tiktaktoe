@@ -1,4 +1,4 @@
-# Tic-Tac-Toe Engine
+# Tic-Tac-Toe
 
 A web-based Tic-Tac-Toe game built to demonstrate core Data Structures and Algorithms concepts, including Stacks (LIFO), Queues (FIFO), and Decision Trees (Minimax AI).
 
